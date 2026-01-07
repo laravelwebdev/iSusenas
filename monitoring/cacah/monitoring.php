@@ -5,7 +5,7 @@
 
 require_once '../../config/database.php';
 
-try {
+
     $conn = getDbConnection();
     $setRec = mysqli_query($conn, "SELECT * FROM cacah ORDER BY nks ASC, nus + 0 ASC");
     

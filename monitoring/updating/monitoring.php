@@ -5,7 +5,6 @@
 
 require_once '../../config/database.php';
 
-try {
     $conn = getDbConnection();
     $setRec = mysqli_query($conn, "SELECT prov, kab, nks, statusc, p1c, p2c, p3c FROM updating ORDER BY nks ASC");
     
