@@ -10,6 +10,7 @@ if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
     exit;
 }
 
+
     $conn = getDbConnection();
     $nks = sanitizeInput($_GET['nks']);
     $nus = sanitizeInput($_GET['nus']);
@@ -81,7 +82,7 @@ if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
       </div>
 
       <div>
-        <h4>Nomor Urut Sampel Maret 2025</h4>
+        <h4>Nomor Urut Sampel Maret 2026</h4>
         <p class="select">
           <select class="budget"  name="nus">
                 <?php
@@ -91,7 +92,7 @@ if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
         </p>
       </div>
      <div>
-        <label class="label" for="nus0324">No Urut Sampel Maret 2025</label>
+        <label class="label" for="nus0324">No Urut Sampel Maret 2026</label>
         <input type="number" onClick="this.select()"  name="nus0324" id="nus0324" required="" ref="nus0324" min="0" value="<?php echo $data['nus0324']; ?>">
       </div>
       

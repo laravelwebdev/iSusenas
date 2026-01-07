@@ -14,7 +14,7 @@ try {
     $conn = getDbConnection();
     $nama = sanitizeInput($_GET['nama']);
     
-    $query = "SELECT nks, statusc FROM updating WHERE pcl = ? ORDER BY nks ASC";
+    $query = "SELECT nks, statusc FROM updating WHERE kode_pcl = ? ORDER BY nks ASC";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 's', $nama);
     mysqli_stmt_execute($stmt);

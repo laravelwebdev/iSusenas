@@ -1044,6 +1044,8 @@ try {
                             <td class="right"><label class="label-result">{{r439}}</label></td>
                             <td class="grey"></td>
                         </tr>
+                        <input type="hidden"  name="makanan" id="makanan" :value="totalmakanan" />
+                        <input type="hidden"  name="nonmakanan" id="nonmakanan"  :value="totalnonmakanan" />
                     </table>
 
                     <div class="blue-message">
@@ -1172,7 +1174,7 @@ try {
             </fieldset>
         </form>
         </div>
-        <script src="vue.min.js"></script>
+        <script src="../vue.min.js"></script>
         <script src="rekap.js"></script> 
         <script>
             <?php
@@ -1181,7 +1183,7 @@ try {
                                $data= json_decode($row['data']);
                      }
                 foreach($data as $key => $value) {
-                    if (($key != 'nks') && ($key !='nus')){
+                    if (($key != 'nks') && ($key !='nus') && ($key !='makanan') && ($key !='nonmakanan')){
                     $value = str_replace(' ', '',$value);
                    echo '
                   let '.$key.' = document.getElementById("'.$key.'");

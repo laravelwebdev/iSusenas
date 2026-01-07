@@ -352,6 +352,13 @@ new Vue({
       return this.thousandSeprator(
         this.setahun())
     },
+    totalmakanan: function() {
+      return  this.ratamkn()
+    },
+    totalnonmakanan: function() {
+      return  this.ratanon()
+    },
+
 
 }
  

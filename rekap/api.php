@@ -12,15 +12,17 @@ if (!isset($_POST['nks']) || !isset($_POST['nus'])) {
 
 $nks = sanitizeInput($_POST['nks']);
 $nus = sanitizeInput($_POST['nus']);
+$makanan = sanitizeInput($_POST['makanan']);
+$nonmakanan = sanitizeInput($_POST['nonmakanan']);
 $data = json_encode($_POST);
 
 // Prepare and execute query
-$query = "UPDATE cacah SET data = ? WHERE nks = ? AND nus = ?";
+$query = "UPDATE cacah SET data = ?, p2p = ?, p3p = ? WHERE nks = ? AND nus = ?";
 
 try {
     $conn = getDbConnection();
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'sss', $data, $nks, $nus);
+    mysqli_stmt_bind_param($stmt, 'sssss', $data, $makanan, $nonmakanan, $nks, $nus);
     mysqli_stmt_execute($stmt);
     
     echo "<script type='text/javascript'>alert('NKS $nks nomor sampel $nus berhasil simpan'); document.referrer ? window.location = document.referrer : history.back();</script>";

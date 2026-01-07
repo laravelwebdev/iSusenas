@@ -14,7 +14,7 @@ try {
     $conn = getDbConnection();
     $nama = sanitizeInput($_GET['nama']);
     
-    $query = "SELECT DISTINCT nks FROM cacah WHERE pcl = ? ORDER BY nks ASC";
+    $query = "SELECT DISTINCT nks FROM cacah WHERE kode_pcl = ? ORDER BY nks ASC";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 's', $nama);
     mysqli_stmt_execute($stmt);

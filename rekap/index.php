@@ -9,7 +9,7 @@ date_default_timezone_set('Asia/Makassar');
 
 try {
     $conn = getDbConnection();
-    $query = "SELECT DISTINCT pcl FROM cacah ORDER BY pcl ASC";
+    $query = "SELECT DISTINCT kode_pcl,pcl FROM cacah ORDER BY pcl ASC";
     $result = mysqli_query($conn, $query);
 } catch (Exception $e) {
     die('Database error: ' . $e->getMessage());
@@ -51,7 +51,7 @@ try {
       echo '<tr>
         <td><label class="label-result">'.$row["pcl"].'</label></td>
         <td><div class="blue">
-          <p><a href="dcacah.php?nama='.$row["pcl"].'">Rekap</a></p>
+          <p><a href="dcacah.php?nama='.$row["kode_pcl"].'">Rekap</a></p>
         </div></td>
       </tr>
       ';

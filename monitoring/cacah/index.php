@@ -10,126 +10,25 @@ date_default_timezone_set('Asia/Makassar');
 try {
     $conn = getDbConnection();
     
-    $query = "SELECT pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total from cacah GROUP BY pcl ORDER BY sudah DESC";
+    $query = "SELECT kode_pcl, pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total from cacah GROUP BY pcl ORDER BY sudah DESC";
     $result = mysqli_query($conn, $query);
     
     $qtotal = "SELECT prov FROM cacah WHERE statusc='sudah'";
     $rtotal = mysqli_query($conn, $qtotal);
     $total = mysqli_num_rows($rtotal);
     
-    $qtotalp = "SELECT prov FROM cacah WHERE statusk='sudah'";
-    $rtotalp = mysqli_query($conn, $qtotalp);
-    $totalp = mysqli_num_rows($rtotalp);
+    $qsampel = "SELECT id from cacah";
+    $rsampel = mysqli_query($conn, $qsampel);
+    $sampel = mysqli_num_rows($rsampel);
+    
 } catch (Exception $e) {
     die('Database error: ' . $e->getMessage());
 }
 
 
-$qpml = "SELECT pml, SUM(CASE WHEN statust='sudah' THEN 1 ELSE 0 END) AS sudah, count(statust) as total from cacah GROUP BY pml ORDER BY sudah DESC";
+$qpml = "SELECT pml, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total from cacah GROUP BY pml ORDER BY sudah DESC";
 $rpml = mysqli_query($conn, $qpml);
 
-$cacah = array(
-16,
-16,
-16,
-18,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-1,
-2,
-3,
-4,
-6,
-6,
-6,
-8,
-10,
-12,
-14,
-);
-$kpml = array(
-14,
-14,
-14,
-16,
-16,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-20,
-0,
-1,
-2,
-2,
-4,
-4,
-4,
-6,
-6,
-10,
-10,
-
-);
-    
-
-    
-$kumpul = array(
-20,
-20,
-20,
-32,
-32,
-32,
-40,
-40,
-40,
-40,
-40,
-40,
-40,
-40,
-40,
-40,
-40,
-40,
-0,
-0,
-0,
-0,
-8,
-8,
-8,
-8,
-12,
-20,
-20,
-
-);
-    
-    
-    
-    
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +52,7 @@ $kumpul = array(
 
     <fieldset>
       <div class="success">
-      <p>Pencacahan</p>
+      <p>Per PCL</p>
     </div>
     <table>
       <tr>
@@ -164,29 +63,19 @@ $kumpul = array(
           <p>Cacah</p>
         </div></td>
         <td class="td-small"><div class="success">
-          <p>Kumpul</p>
-        </div></td>
-        <td class="td-small"><div class="success">
           <p>Detail</p>
         </div></td>
       </tr>
       <?php
            while($row = mysqli_fetch_array($result))
      {
-        $targetc=$cacah[idate('d')-1];
-        $targetkpml=$kpml[idate('d')-1];
-         
-         if($targetc > $row["total"]) $targetc = $row["total"];
-         if($targetkpml > $row["total"]) $targetkpml = $row["total"];
-         $colorc = 'red';
-      if ($row["sudah"]-$targetc>=0) $colorc='success';
+    $colorc='blue';
       
       echo '<tr>
         <td><label class="label-result">'.$row["pcl"].'</label></td>
-        <td><div class="'.$colorc.'"><p>'.$row["sudah"].'/'.$targetc.'</p></div></td>
-        <td><div class="warning"><p>'.$kpml[idate('d')-1].'</p></div></td>
+        <td><div class="'.$colorc.'"><p>'.$row["sudah"].'</p></div></td>
         <td><div class="blue">
-          <p><a href="index2.php?nama='.$row["pcl"].'">Detail</a></p>
+          <p><a href="index2.php?nama='.$row["kode_pcl"].'">Detail</a></p>
         </div></td>
       </tr>
       ';
@@ -197,15 +86,15 @@ $kumpul = array(
         <td><div class="success">
           <p><?php echo $total; ?></p>
         </div></td>
-        <td colspan="2"><div class="success">
-          <p><?php echo round(100*$total/660,2).'%'; ?></p>
+        <td><div class="success">
+          <p><?php echo round(100*$total/$sampel,2).'%'; ?></p>
         </div></td>
       </tr>
      
       </table>
 
       <div class="warning">
-        <p>Pemasukan Dokumen</p>
+        <p>Per PML</p>
       </div>
 
       <table>
@@ -220,13 +109,10 @@ $kumpul = array(
       <?php
            while($rowpml = mysqli_fetch_array($rpml))
      {
-        $targetk=$kumpul[idate('d')-1];
-         if($targetk > $rowpml["total"]) $targetk = $rowpml["total"];
-         $colork = 'red';
-     if ($rowpml["sudah"]-$targetk>=0) $colork='success';
+ $colork='blue';
       echo '<tr>
         <td><label class="label-result">'.$rowpml["pml"].'</label></td>
-        <td class="right"><div class="'.$colork.'"><p>'.$rowpml["sudah"].'/'.$targetk.'</p></div></td>
+        <td class="right"><div class="'.$colork.'"><p>'.$rowpml["sudah"].'</p></div></td>
 
       </tr>
       ';
@@ -238,7 +124,7 @@ $kumpul = array(
             <p>TOTAL</p>
           </div></td>
           <td><div class="warning">
-            <p><?php echo $totalp; ?></p>
+            <p><?php echo $total; ?></p>
           </div></td>          
         </tr>
         </table>

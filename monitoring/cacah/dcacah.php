@@ -15,7 +15,7 @@ try {
     $nks = sanitizeInput($_GET['nks']);
     $nama = sanitizeInput($_GET['nama']);
     
-    $query = "SELECT nks, nus, nus0324, krt, krt0324, statusc FROM cacah WHERE nks = ? AND pcl = ? ORDER BY nks ASC, nus + 0 ASC";
+    $query = "SELECT nks, nus, nus0324, krt, krt0324, statusc FROM cacah WHERE nks = ? AND kode_pcl = ? ORDER BY nks ASC, nus + 0 ASC";
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 'ss', $nks, $nama);
     mysqli_stmt_execute($stmt);

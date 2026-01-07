@@ -2,7 +2,6 @@
 /**
  * Monitoring updating index page
  */
-
 require_once '../../config/database.php';
 
 date_default_timezone_set('Asia/Makassar');
@@ -10,7 +9,7 @@ date_default_timezone_set('Asia/Makassar');
 try {
     $conn = getDbConnection();
     
-    $query = "SELECT pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total FROM updating GROUP BY pcl ORDER BY sudah DESC";
+    $query = "SELECT kode_pcl, pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total FROM updating GROUP BY pcl ORDER BY sudah DESC";
     $result = mysqli_query($conn, $query);
     
     $qtotal = "SELECT prov FROM updating WHERE statusc='sudah'";
@@ -24,116 +23,6 @@ $qtotalp = "Select prov from updating where statusk='sudah'";
 $rtotalp = mysqli_query($conn, $qtotalp);
 $totalp=mysqli_num_rows($rtotalp);
 
-
-// $qpml = "SELECT pml, SUM(CASE WHEN statusk='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusk) as total from updating GROUP BY pml ORDER BY sudah DESC";
-// $rpml = mysqli_query($connect, $qpml);
-
-// $cacah = array(
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 1,
-// 1,
-// 1,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2
-// );
-// $kpml = array(
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 1,
-// 1,
-// 1,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2,
-// 2
-// );
-    
-
-    
-// $kumpul = array(
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 0,
-// 2,
-// 2,
-// 2,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4,
-// 4
-// );
-    
-    
-    
-    
 ?>
 
 <!DOCTYPE html>
@@ -167,9 +56,6 @@ $totalp=mysqli_num_rows($rtotalp);
         <td><div class="success">
           <p>Cacah</p>
         </div></td>
-        <!--<td class="td-small"><div class="success">-->
-        <!--  <p>Kumpul</p>-->
-        <!--</div></td>-->
         <td><div class="success">
           <p>Detail</p>
         </div></td>
@@ -177,19 +63,11 @@ $totalp=mysqli_num_rows($rtotalp);
       <?php
            while($row = mysqli_fetch_array($result))
      {
-    //     $targetc=$cacah[idate('d')-1];
-    //     $targetkpml=$kpml[idate('d')-1];
-         
-    //      if($targetc > $row["total"]) $targetc = $row["total"];
-    //      if($targetkpml > $row["total"]) $targetkpml = $row["total"];
-    //      $colorc = 'red';
-    //   if ($row["sudah"]-$targetc>=0) $colorc='success';
-      
       echo '<tr>
         <td colspan="2"><label class="label-result">'.$row["pcl"].'</label></td>
         <td><div class="blue"><p>'.$row["sudah"].'</p></div></td>
         <td><div class="blue">
-          <p><a href="dcacah.php?nama='.$row["pcl"].'">Detail</a></p>
+          <p><a href="dcacah.php?nama='.$row["kode_pcl"].'">Detail</a></p>
         </div></td>
       </tr>
       ';
@@ -206,50 +84,6 @@ $totalp=mysqli_num_rows($rtotalp);
       </tr>
      
       </table>
-
-      <!--<div class="warning">-->
-      <!--  <p>Pemasukan Dokumen</p>-->
-      <!--</div>-->
-
-      <!--<table>-->
-      <!--  <tr>-->
-      <!--    <td><div class="warning">-->
-      <!--      <p>Nama PML</p>-->
-      <!--    </div></td>-->
-      <!--    <td><div class="warning">-->
-      <!--      <p>Jumlah</p>-->
-      <!--    </div></td>          -->
-      <!--  </tr>-->
-      <?php
-    //       while($rowpml = mysqli_fetch_array($rpml))
-    //  {
-    //     $targetk=$kumpul[idate('d')-1];
-    //      if($targetk > $rowpml["total"]) $targetk = $rowpml["total"];
-    //      $colork = 'red';
-    //  if ($rowpml["sudah"]-$targetk>=0) $colork='success';
-    //   echo '<tr>
-    //     <td><label class="label-result">'.$rowpml["pml"].'</label></td>
-    //     <td class="right"><div class="'.$colork.'"><p>'.$rowpml["sudah"].'/'.$targetk.'</p></div></td>
-
-    //   </tr>
-    //   ';
-    //  }
-     ?>
-
-<!--        <tr>-->
-<!--          <td><div class="warning">-->
-<!--            <p>TOTAL</p>-->
-<!--          </div></td>-->
-<!--          <td><div class="warning">-->
-<!--            <p><?php echo $totalp; ?></p>-->
-<!--          </div></td>          -->
-<!--        </tr>-->
-<!--        </table>-->
-
-<!--    </fieldset>-->
-<!--  </form>-->
-
-<!--</div>-->
 
 </body>
 
