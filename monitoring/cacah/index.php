@@ -36,7 +36,7 @@ $rpml = mysqli_query($conn, $qpml);
 
 <head>
   <meta charset='UTF-8'>
-  <title>Konversi Susenas</title>
+  <title>iSusenas</title>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +99,7 @@ $rpml = mysqli_query($conn, $qpml);
 
       <table>
         <tr>
-          <td colspan="2"><div class="warning">
+          <td colspan="3"><div class="warning">
             <p>Nama PML</p>
           </div></td>
           <td><div class="warning">
@@ -111,7 +111,7 @@ $rpml = mysqli_query($conn, $qpml);
      {
  $colork='blue';
       echo '<tr>
-        <td colspan="2"><label class="label-result">'.$rowpml["pml"].'</label></td>
+        <td colspan="3"><label class="label-result">'.$rowpml["pml"].'</label></td>
         <td class="right"><div class="'.$colork.'"><p>'.$rowpml["sudah"].'/'.$rowpml["total"].'</p></div></td>
 
       </tr>
@@ -120,7 +120,7 @@ $rpml = mysqli_query($conn, $qpml);
      ?>
 
         <tr>
-          <td><div class="warning">
+          <td colspan="3"><div class="warning">
             <p>TOTAL</p>
           </div></td>
           <td><div class="warning">

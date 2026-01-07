@@ -54,7 +54,7 @@ if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
 
 <head>
   <meta charset='UTF-8'>
-  <title>Konversi Susenas</title>
+  <title>iSusenas</title>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
   <meta name="viewport" content="width=device-width, initial-scale=1">
