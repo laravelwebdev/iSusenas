@@ -5,7 +5,6 @@
 
 require_once '../../config/database.php';
 
-try {
     $conn = getDbConnection();
     
     $qselect = "SELECT DISTINCT kab FROM updating WHERE statusc='sudah' ORDER BY nks ASC";
@@ -23,9 +22,9 @@ try {
     }
     
     if (isset($_GET['kab'])) {
-$kab = mysqli_real_escape_string($connect, $_GET['kab']);
+$kab = mysqli_real_escape_string($conn, $_GET['kab']);
 $query = "SELECT nks, statusk FROM updating where statusc='sudah' and kab='".$kab."' ORDER by nks ASC";
-$result = mysqli_query($connect, $query);  
+$result = mysqli_query($conn, $query);  
 $selected='';
 
 }

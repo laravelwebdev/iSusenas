@@ -10,7 +10,6 @@ if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
     exit;
 }
 
-try {
     $conn = getDbConnection();
     $nks = sanitizeInput($_GET['nks']);
     $nus = sanitizeInput($_GET['nus']);
