@@ -1,18 +1,28 @@
 <?php
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$qselect = "SELECT DISTINCT kab FROM updating where statusc='sudah' ORDER BY nks ASC";
-$rselect = mysqli_query($connect, $qselect);
+/**
+ * Monitoring updating kumpul page
+ */
 
+require_once '../../config/database.php';
 
-if (isset($_POST['token'])) {
-$kab = mysqli_real_escape_string($connect, $_POST['kab']);
-$query = "SELECT nks, statusk FROM updating where statusc='sudah' and kab='".$kab."' ORDER by nks ASC";
-$result = mysqli_query($connect, $query);  
-$selected='';
-
-}
-
-if (isset($_GET['kab'])) {
+try {
+    $conn = getDbConnection();
+    
+    $qselect = "SELECT DISTINCT kab FROM updating WHERE statusc='sudah' ORDER BY nks ASC";
+    $rselect = mysqli_query($conn, $qselect);
+    
+    if (isset($_POST['token'])) {
+        $kab = sanitizeInput($_POST['kab']);
+        
+        $query = "SELECT nks, statusk FROM updating WHERE statusc='sudah' AND kab = ? ORDER BY nks ASC";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 's', $kab);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $selected = '';
+    }
+    
+    if (isset($_GET['kab'])) {
 $kab = mysqli_real_escape_string($connect, $_GET['kab']);
 $query = "SELECT nks, statusk FROM updating where statusc='sudah' and kab='".$kab."' ORDER by nks ASC";
 $result = mysqli_query($connect, $query);  

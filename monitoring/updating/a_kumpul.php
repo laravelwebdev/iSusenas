@@ -1,28 +1,35 @@
-<?php  
-//action.php
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
+<?php
+/**
+ * Action handler for updating kumpul data in updating table
+ */
 
+require_once '../../config/database.php';
+
+// Get and sanitize POST data
 $input = filter_input_array(INPUT_POST);
 
-$nks = mysqli_real_escape_string($connect, $input['nks']);
-$kab = mysqli_real_escape_string($connect, $input['kab']);
-$status = mysqli_real_escape_string($connect, $input['status']);
-$tanggal = mysqli_real_escape_string($connect, $input['tanggal']);
+if (!$input) {
+    redirect('kumpul.php', 'Invalid request');
+}
+
+// Sanitize inputs
+$nks = sanitizeInput($input['nks']);
+$kab = sanitizeInput($input['kab']);
+$status = sanitizeInput($input['status']);
+$tanggal = sanitizeInput($input['tanggal']);
 $tanggal = date("d-m-Y", strtotime($tanggal));
 
-$query = "
- UPDATE updating 
- SET 
- statusk= '".$status."',
- tanggal= '".$tanggal."'
-  WHERE nks = '".$nks."' 
- ";
+// Prepare and execute query
+$query = "UPDATE updating SET statusk = ?, tanggal = ? WHERE nks = ?";
 
-
-mysqli_query($connect, $query);
-echo "<script type='text/javascript'>alert('NKS $nks  berhasil diupdate'); window.location.replace('kumpul.php?kab=$kab');</script>";
-
-
-
-
+try {
+    $conn = getDbConnection();
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'sss', $status, $tanggal, $nks);
+    mysqli_stmt_execute($stmt);
+    
+    redirect("kumpul.php?kab=$kab", "NKS $nks berhasil diupdate");
+} catch (Exception $e) {
+    redirect("kumpul.php?kab=$kab", "Error: " . $e->getMessage());
+}
 ?>

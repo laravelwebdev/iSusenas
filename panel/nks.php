@@ -1,9 +1,27 @@
 <?php
-if (!isset($_GET["nks"])) header("Location:index.php");
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT  distinct nks, r109 as nus, krt from art where nks=".$_GET['nks']." order by nus ASC";
-$result = mysqli_query($connect, $query)
+/**
+ * Panel NKS page
+ */
 
+require_once '../config/database.php';
+
+if (!isset($_GET["nks"])) {
+    header("Location:index.php");
+    exit;
+}
+
+try {
+    $conn = getDbConnection();
+    $nks = sanitizeInput($_GET['nks']);
+    
+    $query = "SELECT DISTINCT nks, r109 as nus, krt FROM art WHERE nks = ? ORDER BY nus ASC";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 's', $nks);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>

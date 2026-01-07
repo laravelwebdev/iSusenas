@@ -1,8 +1,19 @@
 <?php
+/**
+ * Evaluasi page
+ */
+
+require_once '../../config/database.php';
+
 date_default_timezone_set('Asia/Makassar');
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "select nks,nus0324 ,pcl,pml, round((p2p+p3p)/p1p,0) as perkapita from cacah where statusc='sudah' order by perkapita ASC, nks ASC, nus+0 ASC";
-$result = mysqli_query($connect, $query);
+
+try {
+    $conn = getDbConnection();
+    $query = "SELECT nks, nus0324, pcl, pml, ROUND((p2p+p3p)/p1p, 0) as perkapita FROM cacah WHERE statusc='sudah' ORDER BY perkapita ASC, nks ASC, nus+0 ASC";
+    $result = mysqli_query($conn, $query);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>

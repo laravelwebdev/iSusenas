@@ -1,12 +1,24 @@
 <?php
-date_default_timezone_set('Asia/Makassar');
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total from updating GROUP BY pcl ORDER BY sudah DESC";
-$result = mysqli_query($connect, $query);
+/**
+ * Monitoring updating index page
+ */
 
-$qtotal = "Select prov from updating where statusc='sudah'";
-$rtotal = mysqli_query($connect, $qtotal);
-$total=mysqli_num_rows($rtotal);
+require_once '../../config/database.php';
+
+date_default_timezone_set('Asia/Makassar');
+
+try {
+    $conn = getDbConnection();
+    
+    $query = "SELECT pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total FROM updating GROUP BY pcl ORDER BY sudah DESC";
+    $result = mysqli_query($conn, $query);
+    
+    $qtotal = "SELECT prov FROM updating WHERE statusc='sudah'";
+    $rtotal = mysqli_query($conn, $qtotal);
+    $total = mysqli_num_rows($rtotal);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 
 $qtotalp = "Select prov from updating where statusk='sudah'";
 $rtotalp = mysqli_query($connect, $qtotalp);

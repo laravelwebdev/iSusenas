@@ -1,8 +1,19 @@
 <?php
+/**
+ * Monitoring updating evaluasi page
+ */
+
+require_once '../../config/database.php';
+
 date_default_timezone_set('Asia/Makassar');
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "select nks,pcl,pml, (p2c-p1c) as selisih, round(100*(p2c-p1c)/p1c,2) as persen from updating where statusc='sudah' order by nks ASC";
-$result = mysqli_query($connect, $query);
+
+try {
+    $conn = getDbConnection();
+    $query = "SELECT nks, pcl, pml, (p2c-p1c) as selisih, ROUND(100*(p2c-p1c)/p1c, 2) as persen FROM updating WHERE statusc='sudah' ORDER BY nks ASC";
+    $result = mysqli_query($conn, $query);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>

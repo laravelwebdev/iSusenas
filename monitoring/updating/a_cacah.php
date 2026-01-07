@@ -1,31 +1,40 @@
-<?php  
-//action.php
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
+<?php
+/**
+ * Action handler for updating data
+ */
 
+require_once '../../config/database.php';
+
+// Get and sanitize POST data
 $input = filter_input_array(INPUT_POST);
 
-$nks = mysqli_real_escape_string($connect, $input['nks']);
-$statusc = mysqli_real_escape_string($connect, $input['statusc']);
-$p1c = mysqli_real_escape_string($connect, $input['p1c']);
-$p2c = mysqli_real_escape_string($connect, $input['p2c']);
-$p3c = mysqli_real_escape_string($connect, $input['p3c']);
+if (!$input) {
+    redirect('dcacah.php', 'Invalid request');
+}
 
-$query = "
- UPDATE updating 
- SET 
- statusc= '".$statusc."',
- p1c= '".$p1c."',
- p2c= '".$p2c."',
- p3c= '".$p3c."'
- 
- WHERE nks = '".$nks."'
- ";
+// Sanitize inputs
+$nks = sanitizeInput($input['nks']);
+$statusc = sanitizeInput($input['statusc']);
+$p1c = sanitizeInput($input['p1c']);
+$p2c = sanitizeInput($input['p2c']);
+$p3c = sanitizeInput($input['p3c']);
+$nama = sanitizeInput($input['nama']);
 
+// Prepare and execute query
+$query = "UPDATE updating SET 
+    statusc = ?, p1c = ?, p2c = ?, p3c = ?
+    WHERE nks = ?";
 
-mysqli_query($connect, $query);
-echo "<script type='text/javascript'>alert('NKS $nks berhasil diupdate'); window.location.replace('dcacah.php?nama=$input[nama]');</script>";
-
-
-
-
+try {
+    $conn = getDbConnection();
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'sssss', 
+        $statusc, $p1c, $p2c, $p3c, $nks
+    );
+    mysqli_stmt_execute($stmt);
+    
+    redirect("dcacah.php?nama=$nama", "NKS $nks berhasil diupdate");
+} catch (Exception $e) {
+    redirect("dcacah.php?nama=$nama", "Error: " . $e->getMessage());
+}
 ?>

@@ -1,8 +1,17 @@
 <?php
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT DISTINCT nks from art order by NKS ASC";
-$result = mysqli_query($connect, $query)
+/**
+ * Panel index page
+ */
 
+require_once '../config/database.php';
+
+try {
+    $conn = getDbConnection();
+    $query = "SELECT DISTINCT nks FROM art ORDER BY nks ASC";
+    $result = mysqli_query($conn, $query);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>

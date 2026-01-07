@@ -1,9 +1,29 @@
 <?php
-    $connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-    $query = "SELECT data from cacah where nus='".$_GET['nus']."' and nks='".$_GET['nks']."'";
-    $result = mysqli_query($connect, $query);
+/**
+ * Rekap detail page
+ */
+
+require_once '../config/database.php';
+
+if (!isset($_GET['nus']) || !isset($_GET['nks'])) {
+    header("Location:index.php");
+    exit;
+}
+
+try {
+    $conn = getDbConnection();
+    $nus = sanitizeInput($_GET['nus']);
+    $nks = sanitizeInput($_GET['nks']);
     
-    ?>
+    $query = "SELECT data FROM cacah WHERE nus = ? AND nks = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'ss', $nus, $nks);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang='en' class=''>
     <head>

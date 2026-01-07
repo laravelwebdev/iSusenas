@@ -1,18 +1,17 @@
-<?php  
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$setRec = mysqli_query($connect,"select * from cacah ORDER BY nks ASC,nus + 0 ASC");
-$columnHeader = '';  
-$columnHeader =  
- "id"."\t".
- "prov"."\t".
- "kab"."\t".
- "nks"."\t".
- "nus"."\t".
- "nus0324"."\t".
- "krt"."\t".
- "krt0324"."\t".
- "pcl"."\t".
- "pml"."\t".
+<?php
+/**
+ * Monitoring cacah data export
+ */
+
+require_once '../../config/database.php';
+
+try {
+    $conn = getDbConnection();
+    $setRec = mysqli_query($conn, "SELECT * FROM cacah ORDER BY nks ASC, nus + 0 ASC");
+    
+    $columnHeader = '';
+    $columnHeader = "id" . "\t" . "prov" . "\t" . "kab" . "\t" . "nks" . "\t" . "nus" . "\t" . 
+                    "nus0324" . "\t" . "krt" . "\t" . "krt0324" . "\t" . "pcl" . "\t" . "pml" . "\t";
  "pendidikan"."\t".
  "cacah"."\t".
  "p1c"."\t".

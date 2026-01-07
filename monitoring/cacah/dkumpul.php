@@ -1,7 +1,17 @@
 <?php
+/**
+ * Detail kumpul form
+ */
+
+require_once '../../config/database.php';
+
 if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
-header("Location:kumpul.php");
+    header("Location:kumpul.php");
+    exit;
 }
+
+$nks = sanitizeInput($_GET['nks']);
+$nus = sanitizeInput($_GET['nus']);
 ?>
 
 <!DOCTYPE html>

@@ -1,11 +1,28 @@
 <?php
-if (!isset($_GET['nama']) || !isset($_GET['nks'])) {
-header("Location:index.php");
-}
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT nks,nus, nus0324,krt, krt0324, statusc FROM cacah where nks='".$_GET['nks']."' and pcl='".$_GET['nama']."' ORDER BY nks ASC,nus + 0 ASC";
-$result = mysqli_query($connect, $query);
+/**
+ * Detail cacah list view
+ */
 
+require_once '../../config/database.php';
+
+if (!isset($_GET['nama']) || !isset($_GET['nks'])) {
+    header("Location:index.php");
+    exit;
+}
+
+try {
+    $conn = getDbConnection();
+    $nks = sanitizeInput($_GET['nks']);
+    $nama = sanitizeInput($_GET['nama']);
+    
+    $query = "SELECT nks, nus, nus0324, krt, krt0324, statusc FROM cacah WHERE nks = ? AND pcl = ? ORDER BY nks ASC, nus + 0 ASC";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'ss', $nks, $nama);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>

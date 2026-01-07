@@ -1,13 +1,28 @@
 <?php
+/**
+ * Cacah detail view
+ */
+
+require_once '../../config/database.php';
+
 if (!isset($_GET['nks']) || !isset($_GET['nus'])) {
-header("Location:dcacah.php");
+    header("Location:dcacah.php");
+    exit;
 }
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT *  from cacah where nus='".$_GET['nus']."' and nks='".$_GET['nks']."'";
-$result = mysqli_query($connect, $query);
- while($row = mysqli_fetch_array($result))
-    {
-        $data= $row;
+
+try {
+    $conn = getDbConnection();
+    $nks = sanitizeInput($_GET['nks']);
+    $nus = sanitizeInput($_GET['nus']);
+    
+    $query = "SELECT * FROM cacah WHERE nus = ? AND nks = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'ss', $nus, $nks);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    while($row = mysqli_fetch_array($result)) {
+        $data = $row;
     }
     
     $csudah ='';

@@ -1,9 +1,19 @@
 <?php
-date_default_timezone_set('Asia/Makassar');
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT DISTINCT pcl from cacah ORDER BY pcl ASC";
-$result = mysqli_query($connect, $query);
+/**
+ * Rekap index page
+ */
 
+require_once '../config/database.php';
+
+date_default_timezone_set('Asia/Makassar');
+
+try {
+    $conn = getDbConnection();
+    $query = "SELECT DISTINCT pcl FROM cacah ORDER BY pcl ASC";
+    $result = mysqli_query($conn, $query);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang='en' class=''>

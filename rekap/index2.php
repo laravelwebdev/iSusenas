@@ -1,11 +1,27 @@
 <?php
-if (!isset($_GET['nama'])) {
-header("Location:index.php");
-}
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT DISTINCT nks FROM cacah where pcl='".$_GET['nama']."' ORDER BY nks ASC";
-$result = mysqli_query($connect, $query);
+/**
+ * Rekap index2 page
+ */
 
+require_once '../config/database.php';
+
+if (!isset($_GET['nama'])) {
+    header("Location:index.php");
+    exit;
+}
+
+try {
+    $conn = getDbConnection();
+    $nama = sanitizeInput($_GET['nama']);
+    
+    $query = "SELECT DISTINCT nks FROM cacah WHERE pcl = ? ORDER BY nks ASC";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 's', $nama);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang='en' class=''>

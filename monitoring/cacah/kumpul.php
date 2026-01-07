@@ -1,13 +1,24 @@
 <?php
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$qselect = "SELECT DISTINCT nks FROM cacah where statusc='sudah' ORDER BY nks ASC";
-$rselect = mysqli_query($connect, $qselect);
+/**
+ * Kumpul list view
+ */
 
+require_once '../../config/database.php';
 
-if (isset($_POST['token'])) {
-$nks = mysqli_real_escape_string($connect, $_POST['nks']);
-$query = "SELECT nus, statusk FROM cacah where statusc='sudah' and nks='".$nks."' ORDER by nus + 0 ASC";
-$result = mysqli_query($connect, $query);  
+try {
+    $conn = getDbConnection();
+    
+    $qselect = "SELECT DISTINCT nks FROM cacah WHERE statusc='sudah' ORDER BY nks ASC";
+    $rselect = mysqli_query($conn, $qselect);
+    
+    if (isset($_POST['token'])) {
+        $nks = sanitizeInput($_POST['nks']);
+        
+        $query = "SELECT nus, statusk FROM cacah WHERE statusc='sudah' AND nks = ? ORDER BY nus + 0 ASC";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 's', $nks);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);  
 $selected='';
 
 }

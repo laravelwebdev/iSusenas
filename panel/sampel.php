@@ -1,12 +1,40 @@
 <?php
-if (!isset($_GET["nks"]) || !isset($_GET["nus"])) header("Location:index.php");
+/**
+ * Panel sampel page
+ */
+
+require_once '../config/database.php';
+
+if (!isset($_GET["nks"]) || !isset($_GET["nus"])) {
+    header("Location:index.php");
+    exit;
+}
+
 date_default_timezone_set('Asia/Makassar');
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query2 = "SELECT * FROM art WHERE nks=".$_GET["nks"]." and r109=".$_GET["nus"]." ORDER BY r109,r401 ASC";
-$result2 = mysqli_query($connect, $query2);
-$result3 = mysqli_query($connect, $query2);
-$result4 = mysqli_query($connect, $query2);
-$result5 = mysqli_query($connect, $query2);
+
+try {
+    $conn = getDbConnection();
+    $nks = sanitizeInput($_GET['nks']);
+    $nus = sanitizeInput($_GET['nus']);
+    
+    $query2 = "SELECT * FROM art WHERE nks = ? AND r109 = ? ORDER BY r109, r401 ASC";
+    $stmt = mysqli_prepare($conn, $query2);
+    mysqli_stmt_bind_param($stmt, 'ss', $nks, $nus);
+    
+    mysqli_stmt_execute($stmt);
+    $result2 = mysqli_stmt_get_result($stmt);
+    
+    mysqli_stmt_execute($stmt);
+    $result3 = mysqli_stmt_get_result($stmt);
+    
+    mysqli_stmt_execute($stmt);
+    $result4 = mysqli_stmt_get_result($stmt);
+    
+    mysqli_stmt_execute($stmt);
+    $result5 = mysqli_stmt_get_result($stmt);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 ?>
 
 <!doctype html>

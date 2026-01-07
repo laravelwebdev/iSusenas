@@ -1,7 +1,17 @@
 <?php
+/**
+ * Monitoring updating detail kumpul form
+ */
+
+require_once '../../config/database.php';
+
 if (!isset($_GET['nks']) || !isset($_GET['kab'])) {
-header("Location:kumpul.php");
+    header("Location:kumpul.php");
+    exit;
 }
+
+$nks = sanitizeInput($_GET['nks']);
+$kab = sanitizeInput($_GET['kab']);
 ?>
 
 <!DOCTYPE html>

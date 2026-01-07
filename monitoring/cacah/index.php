@@ -1,16 +1,28 @@
 <?php
+/**
+ * Main index page for monitoring cacah
+ */
+
+require_once '../../config/database.php';
+
 date_default_timezone_set('Asia/Makassar');
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$query = "SELECT pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total from cacah GROUP BY pcl ORDER BY sudah DESC";
-$result = mysqli_query($connect, $query);
 
-$qtotal = "Select prov from cacah where statusc='sudah'";
-$rtotal = mysqli_query($connect, $qtotal);
-$total=mysqli_num_rows($rtotal);
-
-$qtotalp = "Select prov from cacah where statusk='sudah'";
-$rtotalp = mysqli_query($connect, $qtotalp);
-$totalp=mysqli_num_rows($rtotalp);
+try {
+    $conn = getDbConnection();
+    
+    $query = "SELECT pcl, SUM(CASE WHEN statusc='sudah' THEN 1 ELSE 0 END) AS sudah, count(statusc) as total from cacah GROUP BY pcl ORDER BY sudah DESC";
+    $result = mysqli_query($conn, $query);
+    
+    $qtotal = "SELECT prov FROM cacah WHERE statusc='sudah'";
+    $rtotal = mysqli_query($conn, $qtotal);
+    $total = mysqli_num_rows($rtotal);
+    
+    $qtotalp = "SELECT prov FROM cacah WHERE statusk='sudah'";
+    $rtotalp = mysqli_query($conn, $qtotalp);
+    $totalp = mysqli_num_rows($rtotalp);
+} catch (Exception $e) {
+    die('Database error: ' . $e->getMessage());
+}
 
 
 $qpml = "SELECT pml, SUM(CASE WHEN statust='sudah' THEN 1 ELSE 0 END) AS sudah, count(statust) as total from cacah GROUP BY pml ORDER BY sudah DESC";

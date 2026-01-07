@@ -1,18 +1,18 @@
-<?php  
-$connect = mysqli_connect("localhost", "u770759286_susenas", "2=*YF=wd#Z", "u770759286_susenas");
-$setRec = mysqli_query($connect,"select prov,kab,nks,statusc,p1c,p2c,p3c
- from updating ORDER BY nks ASC");
-$columnHeader = '';  
-$columnHeader =  
- "prov"."\t".
- "kab"."\t".
- "nks"."\t".
- "status"."\t".
- "p1c"."\t".
- "p2c"."\t".
- "p3c"."\t";
+<?php
+/**
+ * Monitoring updating data export
+ */
 
-$setData = '';  
+require_once '../../config/database.php';
+
+try {
+    $conn = getDbConnection();
+    $setRec = mysqli_query($conn, "SELECT prov, kab, nks, statusc, p1c, p2c, p3c FROM updating ORDER BY nks ASC");
+    
+    $columnHeader = '';
+    $columnHeader = "prov" . "\t" . "kab" . "\t" . "nks" . "\t" . "status" . "\t" . "p1c" . "\t" . "p2c" . "\t" . "p3c" . "\t";
+    
+    $setData = '';  
   while ($rec = mysqli_fetch_row($setRec)) {  
     $rowData = '';  
     foreach ($rec as $value) {  
