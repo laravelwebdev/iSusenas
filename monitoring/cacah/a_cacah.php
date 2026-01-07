@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Action handler for updating cacah data
+ * Action handler for updating cacah data.
  */
 
 require_once '../../config/database.php';
@@ -8,7 +9,7 @@ require_once '../../config/database.php';
 // Get and sanitize POST data
 $input = filter_input_array(INPUT_POST);
 
-if (!$input) {
+if (! $input) {
     redirect('dcacah.php', 'Invalid request');
 }
 
@@ -31,22 +32,21 @@ $krt0324 = sanitizeInput($input['krt0324']);
 $nama = sanitizeInput($input['nama']);
 
 // Prepare and execute query using prepared statements
-$query = "UPDATE cacah SET 
+$query = 'UPDATE cacah SET 
     statusc = ?, p1c = ?, p2c = ?, p1p = ?, p2p = ?, p3p = ?, p4p = ?, 
     nus0324 = ?, krt0324 = ?, p5p = ?, p1k = ?, p2k = ?, pendidikan = ?
-    WHERE nks = ? AND nus = ?";
+    WHERE nks = ? AND nus = ?';
 
 try {
     $conn = getDbConnection();
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'sssssssssssssss', 
-        $statusc, $p1c, $p2c, $p1p, $p2p, $p3p, $p4p, 
+    mysqli_stmt_bind_param($stmt, 'sssssssssssssss',
+        $statusc, $p1c, $p2c, $p1p, $p2p, $p3p, $p4p,
         $nus0324, $krt0324, $p5p, $p1k, $p2k, $pendidikan, $nks, $nus
     );
     mysqli_stmt_execute($stmt);
-    
+
     redirect("dcacah.php?nama=$nama", "NKS $nks nomor sampel $nus berhasil diupdate");
 } catch (Exception $e) {
-    redirect("dcacah.php?nama=$nama", "Error: " . $e->getMessage());
+    redirect("dcacah.php?nama=$nama", 'Error: '.$e->getMessage());
 }
-?>
