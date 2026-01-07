@@ -21,7 +21,7 @@ try {
 }
 
 $qtotalp = "Select prov from updating where statusk='sudah'";
-$rtotalp = mysqli_query($connect, $qtotalp);
+$rtotalp = mysqli_query($conn, $qtotalp);
 $totalp=mysqli_num_rows($rtotalp);
 
 

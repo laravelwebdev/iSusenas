@@ -26,7 +26,7 @@ try {
 
 
 $qpml = "SELECT pml, SUM(CASE WHEN statust='sudah' THEN 1 ELSE 0 END) AS sudah, count(statust) as total from cacah GROUP BY pml ORDER BY sudah DESC";
-$rpml = mysqli_query($connect, $qpml);
+$rpml = mysqli_query($conn, $qpml);
 
 $cacah = array(
 16,
