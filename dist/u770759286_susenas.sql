@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2026 at 12:39 PM
+-- Generation Time: Jan 07, 2026 at 12:46 PM
 -- Server version: 11.8.3-MariaDB-log
 -- PHP Version: 7.2.34
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `art` (
+  `id` mediumint(8) UNSIGNED NOT NULL,
   `nks` int(11) DEFAULT NULL,
   `r109` int(11) DEFAULT NULL,
   `r400` int(11) DEFAULT NULL,
@@ -94,6 +95,7 @@ CREATE TABLE `cacah` (
 --
 
 CREATE TABLE `updating` (
+  `id` mediumint(8) UNSIGNED NOT NULL,
   `prov` varchar(2) DEFAULT NULL,
   `kab` varchar(2) DEFAULT NULL,
   `nks` int(11) DEFAULT NULL,
@@ -112,9 +114,21 @@ CREATE TABLE `updating` (
 --
 
 --
+-- Indexes for table `art`
+--
+ALTER TABLE `art`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cacah`
 --
 ALTER TABLE `cacah`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `updating`
+--
+ALTER TABLE `updating`
   ADD PRIMARY KEY (`id`);
 
 --

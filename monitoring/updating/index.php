@@ -60,7 +60,7 @@ $rpml = mysqli_query($conn, $qpml);
           <p>Nama PCL</p>
         </div></td>
         <td class="td-small"><div class="success">
-          <p>Cacah</p>
+          <p>Selesai</p>
         </div></td>
         <td class="td-small"><div class="success">
           <p>Detail</p>
@@ -87,7 +87,7 @@ $rpml = mysqli_query($conn, $qpml);
           <p><?php echo $total; ?></p>
         </div></td>
         <td><div class="success">
-          <p><?php echo round(100*$total/$sampel,2).'%'; ?></p>
+          <p><?php echo round(100*$total/$sampel ?? 1,2).'%'; ?></p>
         </div></td>
       </tr>
      
