@@ -86,7 +86,7 @@ a {
 <div class="row">
  
 
-              <div class="column"><a href="https://susenas.office6307.my.id/monitoring/updating/evaluasi.php">
+              <div class="column"><a href="/monitoring/updating/evaluasi.php">
                 <div class="card green">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABHNCSV
 QICAgIfAhkiAAAAAlwSFlzAAAHYgAAB2IBOHqZ2wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYX
@@ -245,7 +245,7 @@ pSJITugmQZ0Iq6Zh7QSX9NILXN0fDo9T1bY/HeXrX/D4AvGx5Dam02AAAAAElFTkSuQmCC">
                 </div>
                 </a>
               </div>
-            <div class="column"><a href="https://susenas.office6307.my.id/monitoring/cacah/evaluasi.php">
+            <div class="column"><a href="/monitoring/cacah/evaluasi.php">
                 <div class="card orange">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABHNCSV
 QICAgIfAhkiAAAAAlwSFlzAAAHYgAAB2IBOHqZ2wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYX
