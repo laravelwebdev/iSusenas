@@ -99,7 +99,7 @@ $rpml = mysqli_query($conn, $qpml);
 
       <table>
         <tr>
-          <td><div class="warning">
+          <td colspan="2"><div class="warning">
             <p>Nama PML</p>
           </div></td>
           <td><div class="warning">
@@ -111,7 +111,7 @@ $rpml = mysqli_query($conn, $qpml);
      {
  $colork='blue';
       echo '<tr>
-        <td><label class="label-result">'.$rowpml["pml"].'</label></td>
+        <td colspan="2"><label class="label-result">'.$rowpml["pml"].'</label></td>
         <td class="right"><div class="'.$colork.'"><p>'.$rowpml["sudah"].'/'.$rowpml["total"].'</p></div></td>
 
       </tr>
