@@ -7,24 +7,26 @@ require_once '../../config/database.php';
 
 
     $conn = getDbConnection();
-    $setRec = mysqli_query($conn, "SELECT * FROM cacah ORDER BY nks ASC, nus + 0 ASC");
+    $setRec = mysqli_query($conn, "SELECT prov, kab, nks, nus0324, cacah, p1c, p2c, p1p, p2p, p3p, p4p, p5p, p1k, p2k, p3k, p1t FROM cacah ORDER BY nks ASC, nus + 0 ASC");
     
-    $columnHeader = "id" . "\t" . "prov" . "\t" . "kab" . "\t" . "nks" . "\t" . "nus" . "\t" . 
-                    "nus0324" . "\t" . "krt" . "\t" . "krt0324" . "\t" . "pcl" . "\t" . "pml" . "\t" .
- "pendidikan"."\t".
- "cacah"."\t".
- "p1c"."\t".
- "p2c"."\t".
- "p1p"."\t".
- "p2p"."\t".
- "p3p"."\t".
- "p4p"."\t".
- "p5p"."\t".
- "p1k"."\t".
- "p2k"."\t".
- "p3k"."\t".
- "p1t"."\t".
- "data"."\t";
+    $columnHeader = 
+ "prov"."\t".
+ "kab"."\t".
+ "nks"."\t".
+ "nus"."\t".
+ "status"."\t".
+ "cacah1"."\t".
+ "cacah2"."\t".
+ "cacah3"."\t".
+ "periksa1"."\t".
+ "periksa2"."\t".
+ "periksa3"."\t".
+ "periksa4"."\t".
+ "periksa5"."\t".
+ "kumpul1"."\t".
+ "kumpul2"."\t".
+ "kumpul3"."\t".
+ "terima1"."\t";
 
 $setData = '';  
   while ($rec = mysqli_fetch_row($setRec)) {  
