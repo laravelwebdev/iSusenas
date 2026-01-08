@@ -3,15 +3,11 @@
  * Monitoring cacah data export
  */
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
 require_once '../../config/database.php';
 
 
     $conn = getDbConnection();
-    $setRec = mysqli_query($conn, "SELECT prov, kab, nks, nus0324, cacah, p1c, p2c, p1p, p2p, p3p, p4p, p5p, p1k, p2k, p3k, p1t FROM cacah ORDER BY nks ASC, nus0324 + 0 ASC");
+    $setRec = mysqli_query($conn, "SELECT prov, kab, nks, nus0324, statusc, p1c, p2c, p1p, p2p, p3p, p4p, p5p, p1k, p2k, p3k, p1t FROM cacah ORDER BY nks ASC, nus0324 + 0 ASC");
     
     $columnHeader = 
  "prov"."\t".
