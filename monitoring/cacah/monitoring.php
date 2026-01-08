@@ -17,7 +17,6 @@ require_once '../../config/database.php';
  "status"."\t".
  "cacah1"."\t".
  "cacah2"."\t".
- "cacah3"."\t".
  "periksa1"."\t".
  "periksa2"."\t".
  "periksa3"."\t".
