@@ -7,7 +7,7 @@ require_once '../../config/database.php';
 
 
     $conn = getDbConnection();
-    $setRec = mysqli_query($conn, "SELECT prov, kab, nks, nus0324, statusc, p1c, p2c, p1p, p2p, p3p, p4p, p5p, p1k, p2k, p3k FROM cacah ORDER BY nks ASC, nus0324 + 0 ASC");
+    $setRec = mysqli_query($conn, "SELECT prov, kab, nks, nus0324, statusc, p1c, p2c, p1p, p2p, p3p, p4p, p5p, p1k, p2k FROM cacah ORDER BY nks ASC, nus0324 + 0 ASC");
     
     $columnHeader = 
  "prov"."\t".
@@ -23,8 +23,7 @@ require_once '../../config/database.php';
  "periksa4"."\t".
  "periksa5"."\t".
  "kumpul1"."\t".
- "kumpul2"."\t".
- "kumpul3"."\t";
+ "kumpul2"."\t";
 
 $setData = '';  
   while ($rec = mysqli_fetch_row($setRec)) {  
