@@ -19,7 +19,7 @@ try {
             harga2,
             fixed
         FROM konversi_komoditas
-        ORDER BY nama ASC
+        ORDER BY id ASC
     ";
 
     $resultKonv = mysqli_query($conn, $queryKonv);
