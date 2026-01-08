@@ -17,14 +17,6 @@ new Vue({
     };
   },
   methods: {
-
-    thousandSeprator(amount) {
-    	if (amount !== '' || amount !== undefined || amount !== 0 || amount !== '0' || amount !== null) {
-        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    } else {
-        return amount;
-    }
-    },
   },
   computed: {
 

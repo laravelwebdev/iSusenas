@@ -1175,6 +1175,7 @@ try {
         </form>
         </div>
         <script src="../vue.min.js"></script>
+        <script src="../currency.js"></script>
         <script src="rekap.js"></script> 
         <script>
             <?php
