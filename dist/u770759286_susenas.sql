@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2026 at 12:46 PM
+-- Generation Time: Jan 08, 2026 at 05:06 AM
 -- Server version: 11.8.3-MariaDB-log
 -- PHP Version: 7.2.34
 
@@ -89,6 +89,21 @@ CREATE TABLE `cacah` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `konversi_komoditas`
+--
+
+CREATE TABLE `konversi_komoditas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `satuan` varchar(50) NOT NULL,
+  `harga1` int(10) UNSIGNED NOT NULL,
+  `harga2` int(10) UNSIGNED NOT NULL,
+  `fixed` tinyint(3) UNSIGNED NOT NULL DEFAULT 2
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `updating`
 --
 
@@ -121,6 +136,12 @@ ALTER TABLE `art`
 -- Indexes for table `cacah`
 --
 ALTER TABLE `cacah`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `konversi_komoditas`
+--
+ALTER TABLE `konversi_komoditas`
   ADD PRIMARY KEY (`id`);
 
 --
